@@ -13,18 +13,22 @@ router.get('/sessions', (req, res) => {
 	})
 });
 
-// router.post('/products', requireJWT, (req, res) => {
-// 	Product.create({ 
-// 		brandName: req.body.brandName,
-// 		name: req.body.name,
-// 	})
-// 	.then((product) => {
-// 		res.send(product)
-// 	})
-// 	.catch((error) => {
-// 		res.status(500).send({ error: error.message })
-// 	})
-// });
+router.post('/sessions', (req, res) => {
+	Session.create({ 
+		name: req.body.name,
+		instructor: req.body.instructor,
+		day: req.body.day,
+		time: req.body.time,
+		floor: req.body.floor,
+		attendees: req.body.attendees
+	})
+	.then((session) => {
+		res.send(session)
+	})
+	.catch((error) => {
+		res.status(500).send({ error: error.message })
+	})
+});
 
 // router.patch('/products', requireJWT, verifyAdmin, (req, res) => {
 // 	Product.findByIdAndUpdate(req.body._id, { $set: { 
