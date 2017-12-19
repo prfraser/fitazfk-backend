@@ -8,6 +8,14 @@ Session.create([
 			time: '4pm - 5pm',
 			floor: 1,
 			attendees: []
+		}, 
+		{
+			name: 'Dancing', 
+			day: 'Thu Dec 21 2017', 
+			instructor: 'Dave Barr', 
+			time: '4pm - 5pm',
+			floor: 1,
+			attendees: []
 		},
 		{ 
 			name: 'Balet', 
