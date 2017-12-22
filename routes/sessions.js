@@ -13,7 +13,7 @@ router.get('/sessions', (req, res) => {
 	})
 });
 
-router.post('/sessions', (req, res) => {
+router.post('/sessions', requireJWT, verifyAdmin, (req, res) => {
 	Session.create({ 
 		name: req.body.name,
 		instructor: req.body.instructor,
@@ -30,37 +30,41 @@ router.post('/sessions', (req, res) => {
 	})
 });
 
-// router.patch('/products', requireJWT, verifyAdmin, (req, res) => {
-// 	Product.findByIdAndUpdate(req.body._id, { $set: { 
-// 			brandName: req.body.brandName,
-// 			name: req.body.name,
-// 		}}, { new: true })
-// 	.then((product) => {
-// 		res.send(product)
-// 	})
-// 	.catch((error) => {
-// 		res.status(500).send({ error: error.message })
-// 	})
-// });
+router.patch('/sessions', requireJWT, verifyAdmin, (req, res) => {
+	Session.findByIdAndUpdate(req.body._id, { $set: { 
+		name: req.body.name,
+		instructor: req.body.instructor,
+		day: req.body.day,
+		time: req.body.time,
+		floor: req.body.floor,
+		attendees: req.body.attendees
+	}}, { new: true })
+	.then((session) => {
+		res.send(session)
+	})
+	.catch((error) => {
+		res.status(500).send({ error: error.message })
+	})
+});
 
-// router.get('/products/:id', requireJWT, (req, res) => {
-// 	Product.findById(req.params.id)
-// 	.then((product) => {
-// 		res.send(product)
-// 	})
-// 	.catch((error) => {
-// 		res.status(500).send({ error: error.message })
-// 	})
-// });
+router.get('/sessions/:id', (req, res) => {
+	Session.findById(req.params.id)
+	.then((session) => {
+		res.send(session)
+	})
+	.catch((error) => {
+		res.status(500).send({ error: error.message })
+	})
+});
 
-// router.delete('/products/:id', requireJWT, verifyAdmin, (req, res) => {
-// 	Product.findByIdAndRemove(req.params.id)
-// 	.then((product) => {
-// 		res.send(product)
-// 	})
-// 	.catch((error) => {
-// 		res.status(500).send({ error: error.message })
-// 	})
-// });
+router.delete('/sessions/:id', requireJWT, verifyAdmin, (req, res) => {
+	Session.findByIdAndRemove(req.params.id)
+	.then((session) => {
+		res.send(session)
+	})
+	.catch((error) => {
+		res.status(500).send({ error: error.message })
+	})
+});
 
 module.exports = router
