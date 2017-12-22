@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "seed": "node models/seed.js",
-    "drop": "node models/drop.js"
+    "drop": "node models/drop.js",
+    "test": "mocha tests/auth.js"
   },
   "author": "",
   "license": "ISC",
