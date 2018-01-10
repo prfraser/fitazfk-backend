@@ -1,6 +1,7 @@
 const express = require('express');
 const authMiddlWare = require('../middleware/auth');
 const router = new express.Router();
+const { requireJWT, verifyAdmin } = require('../middleware/auth');
 const User = require('../models/User');
 
 // Registration
@@ -10,7 +11,7 @@ router.post('/auth/register', authMiddlWare.register, authMiddlWare.signJWTForUs
 router.post('/auth', authMiddlWare.signIn, authMiddlWare.signJWTForUser);
 
 // Get all Users
-router.get('/users', (req, res) => {
+router.get('/users', requireJWT, verifyAdmin, (req, res) => {
 	User.find()
 	.then((users) => {
 		res.send(users)
