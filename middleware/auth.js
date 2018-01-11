@@ -64,7 +64,6 @@ const signJWTForUser = (req, res) => {
 		algorithm: jwtAlgorithm,
 		expiresIn: jwtExpiresIn
 	})
-
 	// Send the JWT to the user!
 	res.send({token: token})
 }

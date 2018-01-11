@@ -22,7 +22,7 @@ router.post('/sessions', requireJWT, verifyAdmin, (req, res) => {
 		day: req.body.day,
 		time: req.body.time,
 		floor: req.body.floor,
-		attendees: req.body.attendees
+		attendees: []
 	})
 	.then((session) => {
 		res.send(session)
@@ -52,7 +52,7 @@ router.patch('/sessions', requireJWT, verifyAdmin, (req, res) => {
 
 // Get a specific session
 router.get('/sessions/:id', (req, res) => {
-	Session.findById(req.params.id)
+	Session.findByIdAndUpdate(req.params.id)
 	.then((session) => {
 		res.send(session)
 	})
@@ -65,7 +65,7 @@ router.get('/sessions/:id', (req, res) => {
 router.patch('/sessions/:id', requireJWT, (req, res) => {
 	Session.update(
 		{ _id: req.body._id },
-		{ $push: { attendees: req.body.attendee } })
+		{ $push: { attendees: req.user._id } })
 	.then((session) => {
 		res.send(session)
 	})
