@@ -52,7 +52,7 @@ router.patch('/sessions', requireJWT, verifyAdmin, (req, res) => {
 
 // Get a specific session
 router.get('/sessions/:id', (req, res) => {
-	Session.findByIdAndUpdate(req.params.id)
+	Session.findById(req.params.id)
 	.then((session) => {
 		res.send(session)
 	})
@@ -62,10 +62,23 @@ router.get('/sessions/:id', (req, res) => {
 });
 
 // Add an attendee to a session
-router.patch('/sessions/:id', requireJWT, (req, res) => {
-	Session.update(
+router.patch('/sessions/join', requireJWT, (req, res) => {
+	Session.findByIdAndUpdate(
 		{ _id: req.body._id },
 		{ $push: { attendees: req.user._id } })
+	.then((session) => {
+		res.send(session)
+	})
+	.catch((error) => {
+		res.status(500).send({ error: error.message })
+	})
+});
+
+// Remove an attendee from a session
+router.patch('/sessions/leave', requireJWT, (req, res) => {
+	Session.findByIdAndUpdate(
+		{ _id: req.body._id },
+		{ $pull: { attendees: req.user._id } })
 	.then((session) => {
 		res.send(session)
 	})
