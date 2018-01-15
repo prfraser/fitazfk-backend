@@ -16,7 +16,7 @@ router.get('/sessions', (req, res) => {
 
 // Create a new session, requires a token and admin role
 router.post('/sessions', requireJWT, verifyAdmin, (req, res) => {
-	Session.create({ 
+	Session.create({
 		name: req.body.name,
 		instructor: req.body.instructor,
 		day: req.body.day,
@@ -34,7 +34,7 @@ router.post('/sessions', requireJWT, verifyAdmin, (req, res) => {
 
 // Updates a session, requires a token and admin role
 router.patch('/sessions', requireJWT, verifyAdmin, (req, res) => {
-	Session.findByIdAndUpdate(req.body._id, { $set: { 
+	Session.findByIdAndUpdate(req.body._id, { $set: {
 		name: req.body.name,
 		instructor: req.body.instructor,
 		day: req.body.day,
@@ -52,7 +52,7 @@ router.patch('/sessions', requireJWT, verifyAdmin, (req, res) => {
 
 // Get a specific session
 router.get('/sessions/:id', (req, res) => {
-	Session.findByIdAndUpdate(req.params.id)
+	Session.findById(req.params.id)
 	.then((session) => {
 		res.send(session)
 	})
