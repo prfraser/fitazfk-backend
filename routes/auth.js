@@ -21,4 +21,16 @@ router.get('/users', requireJWT, verifyAdmin, (req, res) => {
 	})
 });
 
+router.post('/user/active', requireJWT, verifyAdmin, (req, res) => {
+	User.findByIdAndUpdate(req.body._id, { $set: { 
+		active: req.body.active
+	}}, { new: true })
+	.then((user) => {
+		res.send(user)
+	})
+	.catch((error) => {
+		res.status(500).send({ error: error.message })
+	})
+})
+
 module.exports = router;
