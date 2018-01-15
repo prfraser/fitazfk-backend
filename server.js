@@ -18,6 +18,7 @@ app.use(initialize);
 // Routes
 app.use([
 	require('./routes/auth'),
+	require('./routes/users'),
 	require('./routes/sessions')
 ])
 
