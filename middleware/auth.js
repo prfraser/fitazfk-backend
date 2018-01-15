@@ -65,8 +65,13 @@ const signJWTForUser = (req, res) => {
 		algorithm: jwtAlgorithm,
 		expiresIn: jwtExpiresIn
 	})
-	// Send the JWT to the user!
-	res.send({token: token})
+
+	// Send the JWT to the user, if the user is an admin, send back admin as true!
+	if (req.user.role && req.user.role === 'admin') {
+		res.send({token: token, admin: true})
+	} else {
+		res.send({token: token})
+	}	
 }
 
 const verifyAdmin = (req, res, next) => {
