@@ -14,7 +14,8 @@ const register = (req, res, next) => {
 		email: req.body.email,
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
-		active: req.body.active
+		active: req.body.active,
+		signupDate: new Date()
 	})
 
 	// Register the user with their specified password

@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
 	firstName: String,
 	lastName: String,
 	role: String,
-	active: Boolean
+	active: Boolean,
+	signupDate: Date
 });
 
 userSchema.plugin(passportLocalMongoose, {
