@@ -22,7 +22,8 @@ router.post('/sessions', requireJWT, verifyAdmin, (req, res) => {
 		day: req.body.day,
 		time: req.body.time,
 		floor: req.body.floor,
-		attendees: []
+		attendees: [],
+		maxAttendees: req.body.maxAttendees
 	})
 	.then((session) => {
 		res.send(session)
@@ -40,7 +41,7 @@ router.patch('/sessions', requireJWT, verifyAdmin, (req, res) => {
 		day: req.body.day,
 		time: req.body.time,
 		floor: req.body.floor,
-		attendees: req.body.attendees
+		maxAttendees: req.body.maxAttendees
 	}}, { new: true })
 	.then((session) => {
 		res.send(session)

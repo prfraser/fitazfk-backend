@@ -6,7 +6,8 @@ const Session = mongoose.model('Session', {
 	day: String,
 	time: String,
 	floor: Number,
-	attendees: Array
+	attendees: Array,
+	maxAttendees: Number
 });
 
 module.exports = Session

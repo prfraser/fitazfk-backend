@@ -14,7 +14,8 @@ const register = (req, res, next) => {
 		email: req.body.email,
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
-		active: req.body.active
+		active: req.body.active,
+		signupDate: new Date()
 	})
 
 	// Register the user with their specified password
@@ -58,7 +59,8 @@ const signJWTForUser = (req, res) => {
 
 	// Create a signed token
 	const token = JWT.sign({
-		email: user.email
+		email: user.email,
+		role: user.role
 	}, jwtSecret,
 	{
 		subject: user._id.toString(),
