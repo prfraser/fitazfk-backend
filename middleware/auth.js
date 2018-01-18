@@ -56,10 +56,11 @@ passport.use(new PassportJwt.Strategy({
 const signJWTForUser = (req, res) => {
 	// Get the user (either jst logged in or jst signed up)	
 	const user = req.user
-
 	// Create a signed token
 	const token = JWT.sign({
 		email: user.email,
+		firstName: user.firstName,
+		lastName: user.lastName,
 		role: user.role
 	}, jwtSecret,
 	{
