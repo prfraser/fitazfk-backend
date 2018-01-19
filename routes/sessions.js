@@ -74,14 +74,29 @@ router.patch('/sessions/join', requireJWT, (req, res) => {
 		res.status(500).send({ error: error.message })
 	})
 });
-// 
 
-// Remove an attendee from a session
+// Leave a session as an attendee
 router.patch('/sessions/leave', requireJWT, (req, res) => {
 	Session.findByIdAndUpdate(
 		{ _id: req.body._id },
-		{ $pull: { attendees: req.user._id } })
+		{ $pull: { attendees: { _id: req.user._id }}})
 	.then((session) => {
+		res.send(session)
+	})
+	.catch((error) => {
+		res.status(500).send({ error: error.message })
+	})
+});
+
+// Remove an attendee from a session as an admin
+router.patch('/admin/sessions/remove/:id', requireJWT, (req, res) => {
+	console.log(typeof req.body._id, typeof req.params.id)
+	console.log(req.body._id, req.params.id)
+	Session.findByIdAndUpdate(
+		{ _id: req.body._id },
+		{ $pull: { attendees: { _id: req.params.id }}})
+	.then((session) => {
+		console.log(session)
 		res.send(session)
 	})
 	.catch((error) => {
