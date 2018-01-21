@@ -6,14 +6,18 @@ const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { initialize, requireJWT, verifyAdmin } = require('./middleware/auth');
-const port = process.env.PORT || 7000
+const port = process.env.PORT || 7000;
+var favicon = require('serve-favicon');
+var path = require('path');
 
 const app = express();
 
 // Plugins / middleware
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(cors());
 app.use(bodyParser.json());
 app.use(initialize);
+
 
 // Routes
 app.use([

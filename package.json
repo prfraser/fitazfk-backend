@@ -21,6 +21,8 @@
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
     "passport-local-mongoose": "^4.4.0",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.4.5",
     "supertest": "^3.0.0"
   }
 }
