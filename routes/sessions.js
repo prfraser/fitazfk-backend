@@ -77,7 +77,7 @@ router.patch('/sessions/join', requireJWT, (req, res) => {
 
 // Leave a session as an attendee
 router.patch('/sessions/leave', requireJWT, (req, res) => {
-	console.log(req.user._id)
+	console.log(req.user)
 	removeUserFunction(req.body._id, req.user._id, res)
 	// Session.findByIdAndUpdate(
 	// 	{ _id: req.body._id },
