@@ -66,7 +66,7 @@ router.get('/sessions/:id', (req, res) => {
 router.patch('/sessions/join', requireJWT, (req, res) => {
 	Session.findByIdAndUpdate(
 		{ _id: req.body._id },
-		{ $push: { attendees: { firstName: req.user.firstName, lastName: req.user.lastName, id: req.user._id } } })
+		{ $push: { attendees: { firstName: req.user.firstName, lastName: req.user.lastName, _id: req.user._id } } })
 	.then((session) => {
 		res.send(session)
 	})
@@ -111,7 +111,7 @@ router.patch('/admin/sessions/remove', requireJWT, (req, res) => {
 	// removeUserFunction(req.body._id, req.body.attendeeId, res)
 	Session.findByIdAndUpdate(
 		req.body._id,
-		{ $pull: { attendees: { _id: { "$oid": req.body.attendeeId }}}})
+		{ $pull: { attendees: { _id: { $oid: req.body.attendeeId }}}})
 	.then((session) => {
 		console.log(session)
 		res.send(session)
