@@ -65,6 +65,7 @@ router.get('/sessions/:id', (req, res) => {
 // Add an attendee to a session
 router.patch('/sessions/join', requireJWT, (req, res) => {
 	console.log(req.user, req.user._id)
+	console.log(typeof req.user._id)
 	Session.findByIdAndUpdate(
 		{ _id: req.body._id },
 		{ $push: { attendees: { firstName: req.user.firstName, lastName: req.user.lastName, _id: req.user._id } } })
