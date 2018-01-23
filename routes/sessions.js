@@ -109,7 +109,7 @@ router.patch('/admin/sessions/remove', requireJWT, (req, res) => {
 	console.log(typeof req.body._id, typeof req.body.attendeeId)
 	console.log(req.body._id, req.body.attendeeId)
 	// removeUserFunction(req.body._id, req.body.attendeeId, res)
-	Session.find(req.body.id)
+	Session.findById(req.body._id)
 	// Session.findByIdAndUpdate(
 	// 	req.body._id,
 	// 	{ $pull: { attendees: { _id: { $oid: req.body.attendeeId }}}})
