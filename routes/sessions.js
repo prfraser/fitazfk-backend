@@ -92,7 +92,7 @@ router.patch('/sessions/leave', requireJWT, (req, res) => {
 router.patch('/admin/sessions/remove/:id', requireJWT, (req, res) => {
 	console.log(typeof req.body._id, typeof req.params.id)
 	console.log(req.body._id, req.params.id)
-	Session.findByIdAndUpdate(
+	Session.update(
 		{ _id: req.body._id },
 		{ $pull: { attendees: { _id: req.params.id }}})
 	.then((session) => {
