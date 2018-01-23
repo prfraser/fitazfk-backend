@@ -64,6 +64,7 @@ router.get('/sessions/:id', (req, res) => {
 
 // Add an attendee to a session
 router.patch('/sessions/join', requireJWT, (req, res) => {
+	console.log(req.user, req.user._id)
 	Session.findByIdAndUpdate(
 		{ _id: req.body._id },
 		{ $push: { attendees: { firstName: req.user.firstName, lastName: req.user.lastName, _id: req.user._id } } })
@@ -109,13 +110,13 @@ router.patch('/admin/sessions/remove', requireJWT, (req, res) => {
 	console.log(typeof req.body._id, typeof req.body.attendeeId)
 	console.log(req.body._id, req.body.attendeeId)
 	// removeUserFunction(req.body._id, req.body.attendeeId, res)
-	// Session.findById(req.body._id)
-	Session.findByIdAndUpdate(
-		req.body._id,
-		{ $pull: { attendees: { _id: { req.body.attendeeId }}}})
+	Session.findById(req.body._id)
+	// Session.findByIdAndUpdate(
+	// 	req.body._id,
+	// 	{ $pull: { attendees: { _id: { $oid: req.body.attendeeId }}}})
 	.then((session) => {
 		console.log(session)
-		// session.attendees[0].remove()
+		session.attendees[0].remove()
 		res.send(session)
 	})
 	.catch((error) => {
