@@ -89,12 +89,12 @@ router.patch('/sessions/leave', requireJWT, (req, res) => {
 });
 
 // Remove an attendee from a session as an admin
-router.patch('/admin/sessions/remove/:id', requireJWT, (req, res) => {
-	console.log(typeof req.body._id, typeof req.params.id)
-	console.log(req.body._id, req.params.id)
+router.patch('/admin/sessions/remove', requireJWT, (req, res) => {
+	console.log(typeof req.body._id, typeof attendeeId)
+	console.log(req.body._id, attendeeId)
 	Session.findByIdAndUpdate(
 		req.body._id,
-		{ $pull: { attendees: { _id: req.params.id }}})
+		{ $pull: { attendees: { _id: req.body.attendeeId }}})
 	.then((session) => {
 		console.log(session)
 		res.send(session)
