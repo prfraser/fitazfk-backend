@@ -114,8 +114,8 @@ router.patch('/admin/sessions/remove', requireJWT, (req, res) => {
 	// 	req.body._id,
 	// 	{ $pull: { attendees: { _id: { $oid: req.body.attendeeId }}}})
 	.then((session) => {
-		session.attendees[0].remove()
 		console.log(session)
+		session.attendees[0].remove()
 		res.send(session)
 	})
 	.catch((error) => {
