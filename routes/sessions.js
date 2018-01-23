@@ -108,17 +108,17 @@ const removeUserFunction = (classId, attendeeId, res) => {
 router.patch('/admin/sessions/remove', requireJWT, (req, res) => {
 	console.log(typeof req.body._id, typeof req.body.attendeeId)
 	console.log(req.body._id, req.body.attendeeId)
-	removeUserFunction(req.body._id, req.body.attendeeId, res)
-	// Session.findByIdAndUpdate(
-	// 	req.body._id,
-	// 	{ $pull: { attendees: { _id: req.body.attendeeId }}})
-	// .then((session) => {
-	// 	console.log(session)
-	// 	res.send(session)
-	// })
-	// .catch((error) => {
-	// 	res.status(500).send({ error: error.message })
-	// })
+	// removeUserFunction(req.body._id, req.body.attendeeId, res)
+	Session.findByIdAndUpdate(
+		req.body._id,
+		{ $pull: { attendees: { _id: { "$oid": req.body.attendeeId }}}})
+	.then((session) => {
+		console.log(session)
+		res.send(session)
+	})
+	.catch((error) => {
+		res.status(500).send({ error: error.message })
+	})
 });
 
 // Delete a specific session
