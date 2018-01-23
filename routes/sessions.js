@@ -90,6 +90,7 @@ router.patch('/sessions/leave', requireJWT, (req, res) => {
 });
 
 const removeUserFunction = (classId, attendeeId, res) => {
+	console.log(typeof classId, typeof attendeeId)
 	console.log(`Deleting from classid: ${classId}, attendeeId: ${attendeeId}`)
 	Session.findByIdAndUpdate(
 		{ _id: classId },
