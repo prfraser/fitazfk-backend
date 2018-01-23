@@ -77,31 +77,46 @@ router.patch('/sessions/join', requireJWT, (req, res) => {
 
 // Leave a session as an attendee
 router.patch('/sessions/leave', requireJWT, (req, res) => {
+	removeUserFunction(req.body._id, req.user._id, res)
+	// Session.findByIdAndUpdate(
+	// 	{ _id: req.body._id },
+	// 	{ $pull: { attendees: { _id: req.user._id }}})
+	// .then((session) => {
+	// 	res.send(session)
+	// })
+	// .catch((error) => {
+	// 	res.status(500).send({ error: error.message })
+	// })
+});
+
+const removeUserFunction = (classId, attendeeId, res) => {
+	console.log(`Deleting from classid: ${classId}, attendeeId: ${attendeeId}`)
 	Session.findByIdAndUpdate(
-		{ _id: req.body._id },
-		{ $pull: { attendees: { _id: req.user._id }}})
+		{ _id: classId },
+		{ $pull: { attendees: { _id: attendeeId }}})
 	.then((session) => {
 		res.send(session)
 	})
 	.catch((error) => {
 		res.status(500).send({ error: error.message })
 	})
-});
+}
 
 // Remove an attendee from a session as an admin
 router.patch('/admin/sessions/remove', requireJWT, (req, res) => {
 	console.log(typeof req.body._id, typeof req.body.attendeeId)
 	console.log(req.body._id, req.body.attendeeId)
-	Session.findByIdAndUpdate(
-		req.body._id,
-		{ $pull: { attendees: { _id: req.body.attendeeId }}})
-	.then((session) => {
-		console.log(session)
-		res.send(session)
-	})
-	.catch((error) => {
-		res.status(500).send({ error: error.message })
-	})
+	removeUserFunction(req.body._id, req.body.attendeeId, res)
+	// Session.findByIdAndUpdate(
+	// 	req.body._id,
+	// 	{ $pull: { attendees: { _id: req.body.attendeeId }}})
+	// .then((session) => {
+	// 	console.log(session)
+	// 	res.send(session)
+	// })
+	// .catch((error) => {
+	// 	res.status(500).send({ error: error.message })
+	// })
 });
 
 // Delete a specific session
